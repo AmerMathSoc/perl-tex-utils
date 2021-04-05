@@ -1,0 +1,29 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+our $VERSION = '0.00';
+
+use FindBin;
+
+use lib;
+
+BEGIN { lib->import("$FindBin::RealBin/../lib/perl") }
+
+binmode *STDOUT, ":utf8";
+binmode *STDERR, ":utf8";
+
+use TeX::Lexer;
+
+my $file = shift;
+
+my $l = TeX::Lexer->new({ encoding => "utf8", filter => 0 });
+
+$l->bind_to_file($file);
+
+while (my $token = $l->get_next_token()) {
+    print "[", $token->get_datum(), ", ", $token->get_catcode(), "]\n";
+}
+
+__END__

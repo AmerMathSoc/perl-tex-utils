@@ -1,0 +1,47 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+our $VERSION = '0.00';
+
+use FindBin;
+
+use lib;
+
+BEGIN { lib->import("$FindBin::RealBin/../lib/perl") }
+
+binmode *STDOUT, ":utf8";
+binmode *STDERR, ":utf8";
+
+use TeX::Simple::HTML;
+
+my $tex = << 'EOF';
+Some author names:
+
+Zden\v{e}k Dvo\v{r}\'ak
+
+Benjamin K\"ohler
+
+Jonathan Monta\~no
+
+Nguy\cftil{e}n-Quang-\Dbar \cftil{o}, T.
+
+Anthony V\'arilly-Alvarado
+
+Carmen Galaz-Garc\'{\i}a
+
+S\"{o}nmez \c{S}ahuto\u{g}lu
+
+Pawe\l\ Pra\l at
+
+Petr Vojt\v{e}chovsk\'y
+
+Ti\'{\^e}n-S\horn{o}n Ph\d{a}m
+EOF
+
+my $html = tex_to_html($tex);
+
+print $html;
+
+__END__
